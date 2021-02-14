@@ -1,5 +1,6 @@
 package testCases;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.openqa.selenium.support.PageFactory;
@@ -9,21 +10,22 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.TestBase;
-import page.DatabasePage;
+
 import page.LoginPage;
 
 public class LoginPageTest extends TestBase {
 
 	LoginPage loginpageObj;
-
+		
 	@BeforeMethod
 	public void setUp() {
 		initializeDriver();
 		loginpageObj = PageFactory.initElements(driver, LoginPage.class);
+
 	}
 
 	@Test(priority = 1)
-	public void loginTest() throws InterruptedException, ClassNotFoundException, SQLException {
+	public void loginTest() throws InterruptedException, ClassNotFoundException, SQLException, IOException {
 
 		loginpageObj.enterUserName("demo@techfios.com");
 		Thread.sleep(2000);
@@ -31,7 +33,7 @@ public class LoginPageTest extends TestBase {
 		Thread.sleep(2000);
 		loginpageObj.clickSignInButton();
 		Thread.sleep(2000);
-
+		takeScreenshotAtEndOfTest(driver);
 	}
 
 	@Test(priority = 2)
@@ -45,6 +47,10 @@ public class LoginPageTest extends TestBase {
 		String expectedTitle = "Dashboard- iBilling";
 		String actualTitle = loginpageObj.getPageTitle();
 		Assert.assertEquals(expectedTitle, actualTitle);
+		
+		
+		
+
 	}
 
 	@AfterMethod
